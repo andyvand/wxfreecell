@@ -206,6 +206,9 @@ void StatsDialog::SetStats(unsigned int sessionPct, unsigned int sessionWins,
             "Streaks\n\twins:\t\t%u\n\tlosses:\t\t%u\n\tcurrent:\t\t%s",
             winStreak, lossStreak, currentStreak));
     }
+
+    Fit();
+    Centre();
 }
 
 void StatsDialog::OnOK(wxCommandEvent& WXUNUSED(event))
