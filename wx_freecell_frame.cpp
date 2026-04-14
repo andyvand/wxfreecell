@@ -13,6 +13,7 @@
 #include "wx_freecell_dialogs.h"
 
 #include <wx/config.h>
+#include <wx/stdpaths.h>
 #include <wx/xrc/xmlres.h>
 
 wxBEGIN_EVENT_TABLE(FreeCellFrame, wxFrame)
@@ -28,8 +29,16 @@ FreeCellFrame::FreeCellFrame()
 #ifdef __WXMSW__
     SetIcon(wxICON(wxfreecell));
 #elif !defined(__WXMAC__)
-    /* macOS uses the bundle icon from Info.plist */
-    SetIcon(wxICON(wxfreecell));
+    /* On Linux/GTK, load from installed hicolor icon or bundled PNG */
+    {
+        wxIcon icon;
+        wxString iconPath = wxStandardPaths::Get().GetInstallPrefix()
+                            + "/share/icons/hicolor/48x48/apps/wxfreecell.png";
+        if (wxFileExists(iconPath))
+            icon.LoadFile(iconPath, wxBITMAP_TYPE_PNG);
+        if (icon.IsOk())
+            SetIcon(icon);
+    }
 #endif
 
     /* ---- Menu bar from XRC (already loaded from memory in OnInit) ---- */
