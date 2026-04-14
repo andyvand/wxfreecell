@@ -87,6 +87,28 @@ bool FreeCellPanel::InitCards()
     return true;
 }
 
+void FreeCellPanel::EnsureBackBuffer()
+{
+    wxSize sz = GetClientSize();
+    if (sz.GetWidth() <= 0 || sz.GetHeight() <= 0)
+        return;
+    if (!m_backBuffer.IsOk()
+        || m_backBuffer.GetWidth() != sz.GetWidth()
+        || m_backBuffer.GetHeight() != sz.GetHeight())
+    {
+        m_backBuffer = wxBitmap(sz.GetWidth(), sz.GetHeight());
+    }
+}
+
+void FreeCellPanel::FlushBuffer(const wxRect* rect)
+{
+    if (rect)
+        RefreshRect(*rect, false);
+    else
+        Refresh(false);
+    Update();
+}
+
 /* ====================================================================
    Layout
    ==================================================================== */
@@ -275,7 +297,19 @@ void FreeCellPanel::Payoff(wxDC& dc)
 void FreeCellPanel::OnPaint(wxPaintEvent& WXUNUSED(event))
 {
     wxAutoBufferedPaintDC dc(this);
-    PaintMainWindow(dc);
+    EnsureBackBuffer();
+    if (m_backBuffer.IsOk())
+    {
+        wxMemoryDC memDC;
+        memDC.SelectObject(m_backBuffer);
+        PaintMainWindow(memDC);
+        memDC.SelectObject(wxNullBitmap);
+        dc.DrawBitmap(m_backBuffer, 0, 0);
+    }
+    else
+    {
+        PaintMainWindow(dc);
+    }
 }
 
 void FreeCellPanel::PaintMainWindow(wxDC& dc)
@@ -531,9 +565,13 @@ void FreeCellPanel::Flash()
 
 void FreeCellPanel::Flip()
 {
-    wxClientDC dc(this);
+    EnsureBackBuffer();
+    wxMemoryDC dc;
+    dc.SelectObject(m_backBuffer);
     DrawCard(dc, m_game.wFromCol, m_flipPos,
              m_game.card[m_game.wFromCol][m_flipPos], FACEUP);
+    dc.SelectObject(wxNullBitmap);
+    FlushBuffer();
     m_flipPos++;
 
     if (m_game.card[m_game.wFromCol][m_flipPos] == EMPTY)
@@ -589,10 +627,14 @@ void FreeCellPanel::SetFromLoc(unsigned int x, unsigned int y)
     m_game.wFromPos = pos;
     m_game.wMouseMode = TO;
 
-    wxClientDC dc(this);
+    EnsureBackBuffer();
+    wxMemoryDC dc;
+    dc.SelectObject(m_backBuffer);
     DrawCard(dc, col, pos, m_game.card[col][pos], HILITE);
     if (col == TOPROW && pos < 4)
         DrawKing(dc, LEFT, true);
+    dc.SelectObject(wxNullBitmap);
+    FlushBuffer();
 }
 
 void FreeCellPanel::ProcessMoveRequest(unsigned int x, unsigned int y)
@@ -752,8 +794,12 @@ void FreeCellPanel::Transfer(unsigned int fcol, unsigned int fpos,
 
         if (fcol == tcol)
         {
-            wxClientDC dc(this);
+            EnsureBackBuffer();
+            wxMemoryDC dc;
+            dc.SelectObject(m_backBuffer);
             DrawCard(dc, fcol, fpos, m_game.card[fcol][fpos], FACEUP);
+            dc.SelectObject(wxNullBitmap);
+            FlushBuffer();
             return;
         }
     }
@@ -784,8 +830,12 @@ void FreeCellPanel::Transfer(unsigned int fcol, unsigned int fpos,
 
     if (tcol == TOPROW)
     {
-        wxClientDC dc(this);
+        EnsureBackBuffer();
+        wxMemoryDC dc;
+        dc.SelectObject(m_backBuffer);
         DrawKing(dc, tpos < 4 ? LEFT : RIGHT, true);
+        dc.SelectObject(wxNullBitmap);
+        FlushBuffer();
     }
 }
 
@@ -838,8 +888,14 @@ void FreeCellPanel::MoveCards()
             m_frame->SaveWinStats();
         }
 
-        wxClientDC dc(this);
-        Payoff(dc);
+        {
+            EnsureBackBuffer();
+            wxMemoryDC dc;
+            dc.SelectObject(m_backBuffer);
+            Payoff(dc);
+            dc.SelectObject(wxNullBitmap);
+            FlushBuffer();
+        }
 
         YouWinDialog dlg(this);
         dlg.SetSelectGame(m_game.bSelecting);
@@ -969,14 +1025,17 @@ void FreeCellPanel::IsGameLost()
 void FreeCellPanel::Glide(unsigned int fcol, unsigned int fpos,
                           unsigned int tcol, unsigned int tpos)
 {
+    EnsureBackBuffer();
+
     if (fcol == tcol && fpos == tpos)
     {
-        wxClientDC dc(this);
+        wxMemoryDC dc;
+        dc.SelectObject(m_backBuffer);
         DrawCard(dc, tcol, tpos, m_game.card[fcol][fpos], FACEUP);
+        dc.SelectObject(wxNullBitmap);
+        FlushBuffer();
         return;
     }
-
-    wxClientDC dc(this);
 
     /* Prepare foreground bitmap (the card to move) */
     {
@@ -1045,21 +1104,31 @@ void FreeCellPanel::Glide(unsigned int fcol, unsigned int fpos,
     {
         unsigned int x2 = xStart + ((i * dx) / steps);
         unsigned int y2 = yStart + ((i * dy) / steps);
+
+        wxMemoryDC dc;
+        dc.SelectObject(m_backBuffer);
         GlideStep(dc, x1, y1, x2, y2);
+        dc.SelectObject(wxNullBitmap);
+        FlushBuffer();
+
         x1 = x2;
         y1 = y2;
     }
 
-    /* Erase last position */
+    /* Erase last position and draw final card */
     {
+        wxMemoryDC dc;
+        dc.SelectObject(m_backBuffer);
+
         wxMemoryDC memB1;
         memB1.SelectObject(m_bmBgnd1);
         dc.Blit(x1, y1, m_dxCrd, m_dyCrd, &memB1, 0, 0, wxCOPY);
         memB1.SelectObject(wxNullBitmap);
-    }
 
-    /* Draw final card at destination */
-    DrawCard(dc, tcol, tpos, m_game.card[fcol][fpos], FACEUP);
+        DrawCard(dc, tcol, tpos, m_game.card[fcol][fpos], FACEUP);
+        dc.SelectObject(wxNullBitmap);
+        FlushBuffer();
+    }
 }
 
 void FreeCellPanel::GlideStep(wxDC& dc, unsigned int x1, unsigned int y1,
@@ -1143,8 +1212,12 @@ void FreeCellPanel::RevealCard(unsigned int x, unsigned int y)
     if (m_game.card[col][pos + 1] == EMPTY)
         return;
 
-    wxClientDC dc(this);
+    EnsureBackBuffer();
+    wxMemoryDC dc;
+    dc.SelectObject(m_backBuffer);
     DrawCard(dc, col, pos, m_game.card[col][pos], FACEUP);
+    dc.SelectObject(wxNullBitmap);
+    FlushBuffer();
     m_bCardRevealed = true;
 }
 
@@ -1157,7 +1230,9 @@ void FreeCellPanel::RestoreColumn()
     if (m_game.wMouseMode == TO)
         lastpos = m_game.FindLastPos(m_wUpdateCol);
 
-    wxClientDC dc(this);
+    EnsureBackBuffer();
+    wxMemoryDC dc;
+    dc.SelectObject(m_backBuffer);
     int mode = FACEUP;
 
     for (unsigned int pos = m_wUpdatePos + 1; pos < MAXPOS; pos++)
@@ -1172,6 +1247,8 @@ void FreeCellPanel::RestoreColumn()
         DrawCard(dc, m_wUpdateCol, pos,
                  m_game.card[m_wUpdateCol][pos], mode);
     }
+    dc.SelectObject(wxNullBitmap);
+    FlushBuffer();
 }
 
 /* ====================================================================
@@ -1272,11 +1349,17 @@ void FreeCellPanel::SetCursorShape(unsigned int x, unsigned int y)
 
     if (bFound && tcol == TOPROW)
     {
-        wxClientDC dc(this);
-        if (tpos < 4)
-            DrawKing(dc, LEFT, true);
-        else
-            DrawKing(dc, RIGHT, true);
+        unsigned int newState = (tpos < 4) ? LEFT : RIGHT;
+        if (newState != m_kingState)
+        {
+            EnsureBackBuffer();
+            wxMemoryDC dc;
+            dc.SelectObject(m_backBuffer);
+            DrawKing(dc, newState, true);
+            dc.SelectObject(wxNullBitmap);
+            wxRect kingRect(m_wIconOffset, ICONY, BMWIDTH, BMHEIGHT);
+            FlushBuffer(&kingRect);
+        }
     }
 
     if (m_game.wMouseMode != TO)

@@ -118,6 +118,11 @@ private:
     /* Flip state */
     unsigned int m_flipPos;
 
+    /* Persistent back buffer for GTK3 compatibility (wxClientDC is a no-op) */
+    wxBitmap m_backBuffer;
+    void EnsureBackBuffer();
+    void FlushBuffer(const wxRect* rect = nullptr);
+
     /* Glide animation bitmaps */
     wxBitmap m_bmBgnd1;
     wxBitmap m_bmBgnd2;
