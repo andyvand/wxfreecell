@@ -1,3 +1,0 @@
-# Hashes of file build rules.
-2b72712ac7d85fd4e203f40e29f31fbc freecell.xrs
-2f5827b98d51d7237777dacf0b7e36fa freecell_xrs.h
