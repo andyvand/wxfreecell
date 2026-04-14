@@ -191,6 +191,7 @@ void StatsDialog::SetStats(unsigned int sessionPct, unsigned int sessionWins,
         st1->SetLabel(wxString::Format(
             "This session\t\t\t%u%%\n\twon:\t\t%u\n\tlost:\t\t%u\n",
             sessionPct, sessionWins, sessionLosses));
+        st1->InvalidateBestSize();
     }
 
     if (st2)
@@ -198,6 +199,7 @@ void StatsDialog::SetStats(unsigned int sessionPct, unsigned int sessionWins,
         st2->SetLabel(wxString::Format(
             "Total\t\t\t\t%u%%\n\twon:\t\t%u\n\tlost:\t\t%u\n",
             totalPct, totalWon, totalLost));
+        st2->InvalidateBestSize();
     }
 
     if (st3)
@@ -205,6 +207,7 @@ void StatsDialog::SetStats(unsigned int sessionPct, unsigned int sessionWins,
         st3->SetLabel(wxString::Format(
             "Streaks\n\twins:\t\t%u\n\tlosses:\t\t%u\n\tcurrent:\t\t%s",
             winStreak, lossStreak, currentStreak));
+        st3->InvalidateBestSize();
     }
 
     Fit();

@@ -310,7 +310,6 @@ Do you want to play again?</label>
         <border>10</border>
         <object class="wxStaticText" name="IDC_STEXT1">
           <label></label>
-          <size>250,50</size>
         </object>
       </object>
       <object class="sizeritem">
@@ -318,7 +317,6 @@ Do you want to play again?</label>
         <border>10</border>
         <object class="wxStaticText" name="IDC_STEXT2">
           <label></label>
-          <size>250,50</size>
         </object>
       </object>
       <object class="sizeritem">
@@ -326,7 +324,6 @@ Do you want to play again?</label>
         <border>10</border>
         <object class="wxStaticText" name="IDC_STEXT3">
           <label></label>
-          <size>250,60</size>
         </object>
       </object>
       <object class="sizeritem">
