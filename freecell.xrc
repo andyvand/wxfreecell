@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="http://www.wxwidgets.org/wxxrc" version="2.5.3.0">
+
+  <!-- ============================================================
+       Card bitmaps (52 playing cards)
+       cd = value * 4 + suit
+       suit: 0=Club, 1=Diamond, 2=Heart, 3=Spade
+       value: 0=Ace .. 12=King
+       ============================================================ -->
+
+  <!-- Aces (value 0) -->
+  <object class="wxBitmap" name="card_0">bmp/cla.bmp</object>
+  <object class="wxBitmap" name="card_1">bmp/dma.bmp</object>
+  <object class="wxBitmap" name="card_2">bmp/hta.bmp</object>
+  <object class="wxBitmap" name="card_3">bmp/spa.bmp</object>
+
+  <!-- Twos (value 1) -->
+  <object class="wxBitmap" name="card_4">bmp/cl2.bmp</object>
+  <object class="wxBitmap" name="card_5">bmp/dm2.bmp</object>
+  <object class="wxBitmap" name="card_6">bmp/ht2.bmp</object>
+  <object class="wxBitmap" name="card_7">bmp/sp2.bmp</object>
+
+  <!-- Threes (value 2) -->
+  <object class="wxBitmap" name="card_8">bmp/cl3.bmp</object>
+  <object class="wxBitmap" name="card_9">bmp/dm3.bmp</object>
+  <object class="wxBitmap" name="card_10">bmp/ht3.bmp</object>
+  <object class="wxBitmap" name="card_11">bmp/sp3.bmp</object>
+
+  <!-- Fours (value 3) -->
+  <object class="wxBitmap" name="card_12">bmp/cl4.bmp</object>
+  <object class="wxBitmap" name="card_13">bmp/dm4.bmp</object>
+  <object class="wxBitmap" name="card_14">bmp/ht4.bmp</object>
+  <object class="wxBitmap" name="card_15">bmp/sp4.bmp</object>
+
+  <!-- Fives (value 4) -->
+  <object class="wxBitmap" name="card_16">bmp/cl5.bmp</object>
+  <object class="wxBitmap" name="card_17">bmp/dm5.bmp</object>
+  <object class="wxBitmap" name="card_18">bmp/ht5.bmp</object>
+  <object class="wxBitmap" name="card_19">bmp/sp5.bmp</object>
+
+  <!-- Sixes (value 5) -->
+  <object class="wxBitmap" name="card_20">bmp/cl6.bmp</object>
+  <object class="wxBitmap" name="card_21">bmp/dm6.bmp</object>
+  <object class="wxBitmap" name="card_22">bmp/ht6.bmp</object>
+  <object class="wxBitmap" name="card_23">bmp/sp6.bmp</object>
+
+  <!-- Sevens (value 6) -->
+  <object class="wxBitmap" name="card_24">bmp/cl7.bmp</object>
+  <object class="wxBitmap" name="card_25">bmp/dm7.bmp</object>
+  <object class="wxBitmap" name="card_26">bmp/ht7.bmp</object>
+  <object class="wxBitmap" name="card_27">bmp/sp7.bmp</object>
+
+  <!-- Eights (value 7) -->
+  <object class="wxBitmap" name="card_28">bmp/cl8.bmp</object>
+  <object class="wxBitmap" name="card_29">bmp/dm8.bmp</object>
+  <object class="wxBitmap" name="card_30">bmp/ht8.bmp</object>
+  <object class="wxBitmap" name="card_31">bmp/sp8.bmp</object>
+
+  <!-- Nines (value 8) -->
+  <object class="wxBitmap" name="card_32">bmp/cl9.bmp</object>
+  <object class="wxBitmap" name="card_33">bmp/dm9.bmp</object>
+  <object class="wxBitmap" name="card_34">bmp/ht9.bmp</object>
+  <object class="wxBitmap" name="card_35">bmp/sp9.bmp</object>
+
+  <!-- Tens (value 9) -->
+  <object class="wxBitmap" name="card_36">bmp/cl10.bmp</object>
+  <object class="wxBitmap" name="card_37">bmp/dm10.bmp</object>
+  <object class="wxBitmap" name="card_38">bmp/ht10.bmp</object>
+  <object class="wxBitmap" name="card_39">bmp/sp10.bmp</object>
+
+  <!-- Jacks (value 10) -->
+  <object class="wxBitmap" name="card_40">bmp/clj.bmp</object>
+  <object class="wxBitmap" name="card_41">bmp/dmj.bmp</object>
+  <object class="wxBitmap" name="card_42">bmp/htj.bmp</object>
+  <object class="wxBitmap" name="card_43">bmp/spj.bmp</object>
+
+  <!-- Queens (value 11) -->
+  <object class="wxBitmap" name="card_44">bmp/clq.bmp</object>
+  <object class="wxBitmap" name="card_45">bmp/dmq.bmp</object>
+  <object class="wxBitmap" name="card_46">bmp/htq.bmp</object>
+  <object class="wxBitmap" name="card_47">bmp/spq.bmp</object>
+
+  <!-- Kings (value 12) -->
+  <object class="wxBitmap" name="card_48">bmp/clk.bmp</object>
+  <object class="wxBitmap" name="card_49">bmp/dmk.bmp</object>
+  <object class="wxBitmap" name="card_50">bmp/htk.bmp</object>
+  <object class="wxBitmap" name="card_51">bmp/spk.bmp</object>
+
+  <!-- ============================================================
+       Special bitmaps
+       ============================================================ -->
+  <object class="wxBitmap" name="bmp_ghost">bmp/ghost.bmp</object>
+  <object class="wxBitmap" name="bmp_x">bmp/x.bmp</object>
+  <object class="wxBitmap" name="bmp_o">bmp/o.bmp</object>
+  <object class="wxBitmap" name="bmp_back">bmp/back.bmp</object>
+  <object class="wxBitmap" name="bmp_king">king.bmp</object>
+  <object class="wxBitmap" name="bmp_kingl">kingl.bmp</object>
+  <object class="wxBitmap" name="bmp_kings">kings.bmp</object>
+
+  <!-- ============================================================
+       Main Menu Bar
+       ============================================================ -->
+  <object class="wxMenuBar" name="MainMenuBar">
+    <object class="wxMenu" name="GameMenu">
+      <label>&amp;Game</label>
+      <object class="wxMenuItem" name="IDM_NEWGAME">
+        <label>&amp;New Game\tF2</label>
+      </object>
+      <object class="wxMenuItem" name="IDM_SELECT">
+        <label>&amp;Select Game\tF3</label>
+      </object>
+      <object class="wxMenuItem" name="IDM_RESTART">
+        <label>&amp;Restart Game</label>
+        <enabled>0</enabled>
+      </object>
+      <object class="separator"/>
+      <object class="wxMenuItem" name="IDM_STATS">
+        <label>S&amp;tatistics...\tF4</label>
+      </object>
+      <object class="wxMenuItem" name="IDM_OPTIONS">
+        <label>&amp;Options...\tF5</label>
+      </object>
+      <object class="separator"/>
+      <object class="wxMenuItem" name="IDM_UNDO">
+        <label>&amp;Undo\tF10</label>
+        <enabled>0</enabled>
+      </object>
+      <object class="separator"/>
+      <object class="wxMenuItem" name="IDM_EXIT">
+        <label>E&amp;xit</label>
+      </object>
+    </object>
+    <object class="wxMenu" name="HelpMenu">
+      <label>&amp;Help</label>
+      <object class="wxMenuItem" name="IDM_ABOUT">
+        <label>&amp;About FreeCell...</label>
+      </object>
+    </object>
+  </object>
+
+  <!-- MoveCol Dialog -->
+  <object class="wxDialog" name="MoveColDialog">
+    <title>Move to Empty Column...</title>
+    <centered>1</centered>
+    <object class="wxBoxSizer">
+      <orient>wxVERTICAL</orient>
+      <object class="sizeritem">
+        <flag>wxALL|wxEXPAND</flag>
+        <border>15</border>
+        <object class="wxButton" name="IDC_MOVECOL">
+          <label>Move &amp;column</label>
+          <default>1</default>
+        </object>
+      </object>
+      <object class="sizeritem">
+        <flag>wxLEFT|wxRIGHT|wxEXPAND</flag>
+        <border>15</border>
+        <object class="wxButton" name="IDC_SINGLE">
+          <label>Move &amp;single card</label>
+        </object>
+      </object>
+      <object class="sizeritem">
+        <flag>wxALL|wxALIGN_CENTER</flag>
+        <border>15</border>
+        <object class="wxButton" name="wxID_CANCEL">
+          <label>Cancel</label>
+        </object>
+      </object>
+    </object>
+  </object>
+
+  <!-- GameNum Dialog -->
+  <object class="wxDialog" name="GameNumDialog">
+    <title>Game Number</title>
+    <centered>1</centered>
+    <object class="wxBoxSizer">
+      <orient>wxVERTICAL</orient>
+      <object class="sizeritem">
+        <flag>wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER</flag>
+        <border>10</border>
+        <object class="wxStaticText">
+          <label>Select a game number</label>
+          <style>wxALIGN_CENTRE</style>
+        </object>
+      </object>
+      <object class="sizeritem">
+        <flag>wxLEFT|wxRIGHT|wxALIGN_CENTER</flag>
+        <border>10</border>
+        <object class="wxStaticText">
+          <label>from 1 to 1000000</label>
+          <style>wxALIGN_CENTRE</style>
+        </object>
+      </object>
+      <object class="sizeritem">
+        <flag>wxALL|wxALIGN_CENTER</flag>
+        <border>10</border>
+        <object class="wxTextCtrl" name="IDC_GAMENUM">
+          <size>80,-1</size>
+        </object>
+      </object>
+      <object class="sizeritem">
+        <flag>wxBOTTOM|wxALIGN_CENTER</flag>
+        <border>10</border>
+        <object class="wxButton" name="wxID_OK">
+          <label>OK</label>
+          <default>1</default>
+        </object>
+      </object>
+    </object>
+  </object>
+
+  <!-- YouWin Dialog -->
+  <object class="wxDialog" name="YouWinDialog">
+    <title>Game Over</title>
+    <centered>1</centered>
+    <object class="wxBoxSizer">
+      <orient>wxVERTICAL</orient>
+      <object class="sizeritem">
+        <flag>wxALL|wxALIGN_CENTER</flag>
+        <border>15</border>
+        <object class="wxStaticText">
+          <label>Congratulations, you win!
+Do you want to play again?</label>
+          <style>wxALIGN_CENTRE</style>
+        </object>
+      </object>
+      <object class="sizeritem">
+        <flag>wxLEFT|wxRIGHT|wxALIGN_LEFT</flag>
+        <border>15</border>
+        <object class="wxCheckBox" name="IDC_YWSELECT">
+          <label>&amp;Select game</label>
+        </object>
+      </object>
+      <object class="sizeritem">
+        <flag>wxALL|wxALIGN_CENTER</flag>
+        <border>10</border>
+        <object class="wxBoxSizer">
+          <orient>wxHORIZONTAL</orient>
+          <object class="sizeritem">
+            <flag>wxRIGHT</flag>
+            <border>20</border>
+            <object class="wxButton" name="wxID_YES">
+              <label>&amp;Yes</label>
+              <default>1</default>
+            </object>
+          </object>
+          <object class="sizeritem">
+            <object class="wxButton" name="wxID_NO">
+              <label>&amp;No</label>
+            </object>
+          </object>
+        </object>
+      </object>
+    </object>
+  </object>
+
+  <!-- YouLose Dialog -->
+  <object class="wxDialog" name="YouLoseDialog">
+    <title>Game Over</title>
+    <centered>1</centered>
+    <object class="wxBoxSizer">
+      <orient>wxVERTICAL</orient>
+      <object class="sizeritem">
+        <flag>wxALL|wxALIGN_CENTER</flag>
+        <border>15</border>
+        <object class="wxStaticText">
+          <label>Sorry, you lose. There are no more legal moves.
+Do you want to play again?</label>
+        </object>
+      </object>
+      <object class="sizeritem">
+        <flag>wxLEFT|wxRIGHT|wxALIGN_LEFT</flag>
+        <border>15</border>
+        <object class="wxCheckBox" name="IDC_YLSAME">
+          <label>&amp;Same game</label>
+          <checked>1</checked>
+        </object>
+      </object>
+      <object class="sizeritem">
+        <flag>wxALL|wxALIGN_CENTER</flag>
+        <border>10</border>
+        <object class="wxBoxSizer">
+          <orient>wxHORIZONTAL</orient>
+          <object class="sizeritem">
+            <flag>wxRIGHT</flag>
+            <border>20</border>
+            <object class="wxButton" name="wxID_YES">
+              <label>&amp;Yes</label>
+              <default>1</default>
+            </object>
+          </object>
+          <object class="sizeritem">
+            <object class="wxButton" name="wxID_NO">
+              <label>&amp;No</label>
+            </object>
+          </object>
+        </object>
+      </object>
+    </object>
+  </object>
+
+  <!-- Stats Dialog -->
+  <object class="wxDialog" name="StatsDialog">
+    <title>FreeCell Statistics</title>
+    <centered>1</centered>
+    <object class="wxBoxSizer">
+      <orient>wxVERTICAL</orient>
+      <object class="sizeritem">
+        <flag>wxALL|wxEXPAND</flag>
+        <border>10</border>
+        <object class="wxStaticText" name="IDC_STEXT1">
+          <label></label>
+          <size>250,50</size>
+        </object>
+      </object>
+      <object class="sizeritem">
+        <flag>wxLEFT|wxRIGHT|wxEXPAND</flag>
+        <border>10</border>
+        <object class="wxStaticText" name="IDC_STEXT2">
+          <label></label>
+          <size>250,50</size>
+        </object>
+      </object>
+      <object class="sizeritem">
+        <flag>wxALL|wxEXPAND</flag>
+        <border>10</border>
+        <object class="wxStaticText" name="IDC_STEXT3">
+          <label></label>
+          <size>250,60</size>
+        </object>
+      </object>
+      <object class="sizeritem">
+        <flag>wxALL|wxALIGN_CENTER</flag>
+        <border>10</border>
+        <object class="wxBoxSizer">
+          <orient>wxHORIZONTAL</orient>
+          <object class="sizeritem">
+            <flag>wxRIGHT</flag>
+            <border>30</border>
+            <object class="wxButton" name="wxID_OK">
+              <label>OK</label>
+              <default>1</default>
+            </object>
+          </object>
+          <object class="sizeritem">
+            <object class="wxButton" name="IDC_CLEAR">
+              <label>&amp;Clear</label>
+            </object>
+          </object>
+        </object>
+      </object>
+    </object>
+  </object>
+
+  <!-- Options Dialog -->
+  <object class="wxDialog" name="OptionsDialog">
+    <title>FreeCell Options</title>
+    <centered>1</centered>
+    <object class="wxBoxSizer">
+      <orient>wxVERTICAL</orient>
+      <object class="sizeritem">
+        <flag>wxALL</flag>
+        <border>10</border>
+        <object class="wxCheckBox" name="IDC_MESSAGES">
+          <label>Display &amp;messages on illegal moves</label>
+        </object>
+      </object>
+      <object class="sizeritem">
+        <flag>wxLEFT|wxRIGHT|wxBOTTOM</flag>
+        <border>10</border>
+        <object class="wxCheckBox" name="IDC_QUICK">
+          <label>&amp;Quick play (no animation)</label>
+        </object>
+      </object>
+      <object class="sizeritem">
+        <flag>wxLEFT|wxRIGHT|wxBOTTOM</flag>
+        <border>10</border>
+        <object class="wxCheckBox" name="IDC_DBLCLICK">
+          <label>&amp;Double click moves card to free cell</label>
+        </object>
+      </object>
+      <object class="sizeritem">
+        <flag>wxALL|wxALIGN_CENTER</flag>
+        <border>10</border>
+        <object class="wxBoxSizer">
+          <orient>wxHORIZONTAL</orient>
+          <object class="sizeritem">
+            <flag>wxRIGHT</flag>
+            <border>10</border>
+            <object class="wxButton" name="wxID_OK">
+              <label>OK</label>
+              <default>1</default>
+            </object>
+          </object>
+          <object class="sizeritem">
+            <object class="wxButton" name="wxID_CANCEL">
+              <label>Cancel</label>
+            </object>
+          </object>
+        </object>
+      </object>
+    </object>
+  </object>
+
+</resource>

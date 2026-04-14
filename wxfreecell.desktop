@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=wxFreeCell
+GenericName=Microsoft FreeCell
+Comment=Microsoft FreeCell
+Exec=wxFreeCell %f
+Icon=wxfreecell
+Categories=Game;Cards;
+Keywords=Cards;Microsoft;FreeCell;
