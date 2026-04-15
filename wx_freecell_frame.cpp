@@ -25,6 +25,9 @@ FreeCellFrame::FreeCellFrame()
     : wxFrame(nullptr, wxID_ANY, "FreeCell",
               wxDefaultPosition, wxSize(640, 480))
 {
+    /* ---- Minimum window size ---- */
+    SetMinSize(wxSize(640, 480));
+
     /* ---- Application icon ---- */
 #ifdef __WXMSW__
     SetIcon(wxICON(wxfreecell));
