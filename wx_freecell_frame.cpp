@@ -13,8 +13,15 @@
 #include "wx_freecell_dialogs.h"
 
 #include <wx/config.h>
+#include <wx/filename.h>
 #include <wx/stdpaths.h>
+#include <wx/utils.h>
 #include <wx/xrc/xmlres.h>
+
+#ifdef __WXMAC__
+/* Implemented in help_mac.mm. anchor==NULL opens the book's home page. */
+extern "C" void ShowMacHelpBook(const char *anchor);
+#endif
 
 wxBEGIN_EVENT_TABLE(FreeCellFrame, wxFrame)
     EVT_CLOSE(FreeCellFrame::OnClose)
@@ -70,6 +77,10 @@ FreeCellFrame::FreeCellFrame()
         gameMenu->Append(IDM_EXIT, "E&xit");
 
         wxMenu* helpMenu = new wxMenu;
+#if defined(__WXMSW__) || defined(__WXMAC__)
+        helpMenu->Append(IDM_HELP_CONTENTS, "FreeCell &Help\tF1");
+        helpMenu->AppendSeparator();
+#endif
         helpMenu->Append(IDM_ABOUT, "&About FreeCell...");
 
         mb->Append(gameMenu, "&Game");
@@ -87,17 +98,46 @@ FreeCellFrame::FreeCellFrame()
     Bind(wxEVT_MENU, &FreeCellFrame::OnUndo,        this, IDM_UNDO);
     Bind(wxEVT_MENU, &FreeCellFrame::OnExit,        this, IDM_EXIT);
     Bind(wxEVT_MENU, &FreeCellFrame::OnAbout,       this, IDM_ABOUT);
+    Bind(wxEVT_MENU, &FreeCellFrame::OnHelpContents, this, IDM_HELP_CONTENTS);
     Bind(wxEVT_MENU, &FreeCellFrame::OnCheat,       this, IDM_CHEAT);
 
+    /* Hide the "FreeCell Help" menu item on platforms without a help file. */
+#if !defined(__WXMSW__) && !defined(__WXMAC__)
+    if (wxMenuBar* bar = GetMenuBar())
+    {
+        wxMenuItem* helpItem = bar->FindItem(IDM_HELP_CONTENTS);
+        if (helpItem && helpItem->GetMenu())
+        {
+            wxMenu* helpMenu = helpItem->GetMenu();
+            helpMenu->Destroy(helpItem);
+            /* Also remove the trailing separator we added before About. */
+            size_t n = helpMenu->GetMenuItemCount();
+            if (n > 0)
+            {
+                wxMenuItem* first = helpMenu->FindItemByPosition(0);
+                if (first && first->IsSeparator())
+                    helpMenu->Destroy(first);
+            }
+        }
+    }
+#endif
+
     /* ---- Accelerator table ---- */
+#if defined(__WXMSW__) || defined(__WXMAC__)
+    wxAcceleratorEntry accel[7];
+    accel[6].Set(wxACCEL_NORMAL, WXK_F1, IDM_HELP_CONTENTS);
+    const int accelCount = 7;
+#else
     wxAcceleratorEntry accel[6];
+    const int accelCount = 6;
+#endif
     accel[0].Set(wxACCEL_NORMAL, WXK_F2, IDM_NEWGAME);
     accel[1].Set(wxACCEL_NORMAL, WXK_F3, IDM_SELECT);
     accel[2].Set(wxACCEL_NORMAL, WXK_F4, IDM_STATS);
     accel[3].Set(wxACCEL_NORMAL, WXK_F5, IDM_OPTIONS);
     accel[4].Set(wxACCEL_NORMAL, WXK_F10, IDM_UNDO);
     accel[5].Set(wxACCEL_CTRL | wxACCEL_SHIFT, WXK_F10, IDM_CHEAT);
-    wxAcceleratorTable accelTable(6, accel);
+    wxAcceleratorTable accelTable(accelCount, accel);
     SetAcceleratorTable(accelTable);
 
     /* ---- Status bar for card count ---- */
@@ -262,6 +302,29 @@ void FreeCellFrame::OnAbout(wxCommandEvent& WXUNUSED(event))
                  "across all platforms.",
                  "About FreeCell",
                  wxOK | wxICON_INFORMATION, this);
+}
+
+void FreeCellFrame::OnHelpContents(wxCommandEvent& WXUNUSED(event))
+{
+#if defined(__WXMSW__)
+    /* Open the CHM file shipped next to the executable via the default
+       Windows handler (hh.exe / HTML Help). */
+    wxFileName chm(wxStandardPaths::Get().GetExecutablePath());
+    chm.SetFullName("wxfreecell.chm");
+    wxString chmPath = chm.GetFullPath();
+    if (!wxFileExists(chmPath) ||
+        !wxLaunchDefaultApplication(chmPath))
+    {
+        wxMessageBox("Could not open the help file (wxfreecell.chm).",
+                     "FreeCell", wxOK | wxICON_WARNING, this);
+    }
+#elif defined(__WXMAC__)
+    /* Delegate to the Objective-C++ helper in help_mac.mm, which registers
+       the help book at runtime and opens it by name.  Explicit registration
+       is needed because helpd's launch-time registration is unreliable for
+       unsigned dev builds and falls back to the system Mac User Guide. */
+    ShowMacHelpBook(NULL);
+#endif
 }
 
 void FreeCellFrame::OnCheat(wxCommandEvent& WXUNUSED(event))

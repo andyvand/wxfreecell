@@ -132,6 +132,10 @@
     </object>
     <object class="wxMenu" name="HelpMenu">
       <label>&amp;Help</label>
+      <object class="wxMenuItem" name="IDM_HELP_CONTENTS">
+        <label>FreeCell &amp;Help\tF1</label>
+      </object>
+      <object class="separator"/>
       <object class="wxMenuItem" name="IDM_ABOUT">
         <label>&amp;About FreeCell...</label>
       </object>

@@ -62,7 +62,12 @@ set(HEADERS
     wx_freecell.h
 )
 
+set(CHM_FILE  ${CMAKE_CURRENT_SOURCE_DIR}/wxfreecell.chm)
+set(HELP_BUNDLE ${CMAKE_CURRENT_SOURCE_DIR}/wxfreecell.help)
+
 if(APPLE)
+    # macOS-only Objective-C++ help launcher (implements ShowMacHelpBook).
+    list(APPEND SOURCES help_mac.mm)
     set(ICON_FILE ${CMAKE_SOURCE_DIR}/wxfreecell.icns)
     set_source_files_properties(${ICON_FILE} PROPERTIES
         MACOSX_PACKAGE_LOCATION "Resources")
@@ -73,16 +78,51 @@ if(APPLE)
         MACOSX_BUNDLE_GUI_IDENTIFIER "com.wxfreecell.app"
         MACOSX_BUNDLE_BUNDLE_VERSION "1.0"
         MACOSX_BUNDLE_SHORT_VERSION_STRING "1.0"
-        MACOSX_BUNDLE_ICON_FILE "wxfreecell.icns")
+        MACOSX_BUNDLE_ICON_FILE "wxfreecell.icns"
+        MACOSX_BUNDLE_HELP_BOOK_NAME "wxfreecell Help"
+        MACOSX_BUNDLE_HELP_BOOK_FOLDER "wxfreecell.help")
+    add_custom_command(TARGET wxFreeCell POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+            ${HELP_BUNDLE}
+            $<TARGET_BUNDLE_CONTENT_DIR:wxFreeCell>/Resources/wxfreecell.help
+        COMMENT "Copying wxfreecell.help into app bundle Resources")
+    # Register the help book in the app's Info.plist so NSApplication
+    # showHelp: can find it. CMake's MACOSX_BUNDLE_HELP_BOOK_* target
+    # properties are not written to the default Info.plist template,
+    # so inject them explicitly. Use a generated shell helper so we can
+    # swallow "key not present" errors from plutil -remove.
+    set(HELP_PLIST_SCRIPT ${CMAKE_BINARY_DIR}/register_help_book.sh)
+    file(WRITE ${HELP_PLIST_SCRIPT}
+"#!/bin/sh
+set -e
+PLIST=\"$1\"
+/usr/bin/plutil -remove CFBundleHelpBookName   \"$PLIST\" 2>/dev/null || true
+/usr/bin/plutil -remove CFBundleHelpBookFolder \"$PLIST\" 2>/dev/null || true
+/usr/bin/plutil -insert CFBundleHelpBookName   -string \"com.wxfreecell.app.help\"  \"$PLIST\"
+/usr/bin/plutil -insert CFBundleHelpBookFolder -string \"wxfreecell.help\" \"$PLIST\"
+")
+    add_custom_command(TARGET wxFreeCell POST_BUILD
+        COMMAND /bin/sh ${HELP_PLIST_SCRIPT}
+            $<TARGET_BUNDLE_CONTENT_DIR:wxFreeCell>/Info.plist
+        COMMENT "Registering Help Book keys in Info.plist")
 elseif(WIN32)
     list(APPEND SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/wxfreecell.rc)
     add_executable(wxFreeCell WIN32 ${SOURCES} ${HEADERS} ${XRS_HEADER})
+    add_custom_command(TARGET wxFreeCell POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            ${CHM_FILE}
+            $<TARGET_FILE_DIR:wxFreeCell>/wxfreecell.chm
+        COMMENT "Copying wxfreecell.chm next to executable")
+    install(TARGETS wxFreeCell RUNTIME DESTINATION .)
+    install(FILES ${CHM_FILE} DESTINATION .)
 elseif(UNIX)
     add_executable(wxFreeCell ${SOURCES} ${HEADERS} ${XRS_HEADER})
     install(TARGETS wxFreeCell RUNTIME DESTINATION bin)
     install(FILES     ${CMAKE_CURRENT_SOURCE_DIR}/wxfreecell.desktop      DESTINATION share/applications)
     install(FILES     ${CMAKE_CURRENT_SOURCE_DIR}/wxfreecell.metainfo.xml DESTINATION share/metainfo)
-    install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/sizes/                    DESTINATION share/icons/hicolor)
+    install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/sizes/                  DESTINATION share/icons/hicolor)
+    install(FILES     ${CHM_FILE}                                         DESTINATION share/wxfreecell)
+    install(FILES     ${CMAKE_CURRENT_SOURCE_DIR}/wxfreecell.6            DESTINATION share/man/man6)
 else()
     add_executable(wxFreeCell ${SOURCES} ${HEADERS} ${XRS_HEADER})
 endif()

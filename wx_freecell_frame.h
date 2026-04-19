@@ -38,6 +38,7 @@ private:
     void OnUndo(wxCommandEvent& event);
     void OnExit(wxCommandEvent& event);
     void OnAbout(wxCommandEvent& event);
+    void OnHelpContents(wxCommandEvent& event);
     void OnCheat(wxCommandEvent& event);
     void OnClose(wxCloseEvent& event);
 

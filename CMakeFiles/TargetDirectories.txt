@@ -1,0 +1,4 @@
+/Users/andyvand/Downloads/wxfreecell/CMakeFiles/bin2c.dir
+/Users/andyvand/Downloads/wxfreecell/CMakeFiles/wxFreeCell.dir
+/Users/andyvand/Downloads/wxfreecell/CMakeFiles/edit_cache.dir
+/Users/andyvand/Downloads/wxfreecell/CMakeFiles/rebuild_cache.dir

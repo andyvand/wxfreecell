@@ -1,0 +1,65 @@
+.TH WXFREECELL 6 2026-04-19 "wxFreeCell 1.0" "Games"
+.SH NAME
+wxFreeCell \- Microsoft FreeCell solitaire card game
+.SH SYNOPSIS
+.B wxFreeCell
+.RI [ file ]
+.SH DESCRIPTION
+.B wxFreeCell
+is a wxWidgets port of the classic Microsoft FreeCell solitaire card
+game.  The objective is to move all 52 cards to the four home cells,
+building up each suit from ace to king.
+.PP
+The playing field consists of four
+.B free cells
+(temporary single-card holders) in the upper-left, four
+.B home cells
+(foundation piles) in the upper-right, and eight
+.B columns
+where the deck is dealt face up.
+.SH RULES
+Cards in the columns are stacked in descending order with alternating
+colors (red on black, black on red).  Only one card at a time may be
+moved, but free cells and empty columns may be used as temporary
+storage to move groups of cards.  Any card may be placed in an empty
+free cell; cards placed on the home cells must be the next in suit.
+.SH KEYBOARD
+Enable Num Lock to use the numeric keypad.
+.TP
+.B 0
+Cycle through cards in the free cells.
+.TP
+.B 1\-8
+Select the bottom card (or stack) of the numbered column.  Press the
+same number again to cancel the selection.
+.TP
+.B 9
+Move the selected card to its home cell.
+.SH MENU COMMANDS
+The
+.B Game
+menu provides New Game, Select Game (by number), Restart, Undo,
+Statistics and Exit.  The
+.B Options
+menu toggles display preferences.  The
+.B Help
+menu opens this documentation.
+.SH FILES
+.TP
+.I /usr/share/wxfreecell/wxfreecell.chm
+Compiled HTML Help file shipped with the game.
+.TP
+.I /usr/share/applications/wxfreecell.desktop
+Freedesktop application entry.
+.TP
+.I /usr/share/icons/hicolor/*/apps/wxfreecell.*
+Application icons at multiple resolutions.
+.SH SEE ALSO
+.BR sol (6)
+.SH AUTHORS
+Andy Vandijck <andyvand@visualboyadvance-m-emu.org>.
+.SH BUGS
+Report bugs at
+.UR https://github.com/andyvand/wxfreecell/issues
+the project issue tracker
+.UE .
