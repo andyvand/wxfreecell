@@ -18,6 +18,10 @@ Originally written by Jim Horne in June 1991, this port preserves the original g
 
 ![](/screenshots/wxfreecell_linux.png)
 
+- Android:
+
+![](/screenshots/wxfreecell-android.jpg)
+
 ## Features
 
 - All 1,000,000 game numbers from the original FreeCell
