@@ -1,0 +1,4 @@
+#Thu Jul 23 12:55:28 CEST 2026
+base.0=/Users/andyvand/Downloads/wxfreecell/build-android-release/android-build/build/intermediates/dex/release/mergeDexRelease/classes.dex
+path.0=classes.dex
+renamed.0=classes.dex

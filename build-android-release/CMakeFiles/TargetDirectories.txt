@@ -1,0 +1,15 @@
+/Users/andyvand/Downloads/wxfreecell/build-android-release/CMakeFiles/apk.dir
+/Users/andyvand/Downloads/wxfreecell/build-android-release/CMakeFiles/aab.dir
+/Users/andyvand/Downloads/wxfreecell/build-android-release/CMakeFiles/aar.dir
+/Users/andyvand/Downloads/wxfreecell/build-android-release/CMakeFiles/wxFreeCell.dir
+/Users/andyvand/Downloads/wxfreecell/build-android-release/CMakeFiles/wxFreeCell_other_files.dir
+/Users/andyvand/Downloads/wxfreecell/build-android-release/CMakeFiles/wxFreeCell_copy_apk_dependencies.dir
+/Users/andyvand/Downloads/wxfreecell/build-android-release/CMakeFiles/_qt_internal_apk_dependencies.dir
+/Users/andyvand/Downloads/wxfreecell/build-android-release/CMakeFiles/apk_all.dir
+/Users/andyvand/Downloads/wxfreecell/build-android-release/CMakeFiles/qt_internal_plugins.dir
+/Users/andyvand/Downloads/wxfreecell/build-android-release/CMakeFiles/wxFreeCell_prepare_apk_dir.dir
+/Users/andyvand/Downloads/wxfreecell/build-android-release/CMakeFiles/wxFreeCell_make_apk.dir
+/Users/andyvand/Downloads/wxfreecell/build-android-release/CMakeFiles/wxFreeCell_make_aar.dir
+/Users/andyvand/Downloads/wxfreecell/build-android-release/CMakeFiles/wxFreeCell_make_aab.dir
+/Users/andyvand/Downloads/wxfreecell/build-android-release/CMakeFiles/edit_cache.dir
+/Users/andyvand/Downloads/wxfreecell/build-android-release/CMakeFiles/rebuild_cache.dir

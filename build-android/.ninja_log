@@ -1,0 +1,27 @@
+# ninja log v7
+3	411	1784803712720166400	freecell.xrs	81dedbd4a56329ab
+3	411	1784803712720166400	/Users/andyvand/Downloads/wxfreecell/build-android/freecell.xrs	81dedbd4a56329ab
+3	482	1784803712779988043	bin2c	9c51f7b29f67496
+3	482	1784803712779988043	/Users/andyvand/Downloads/wxfreecell/build-android/bin2c	9c51f7b29f67496
+482	490	1784803712801724269	freecell_xrs.h	53ad20ceae2f7b3b
+482	490	1784803712801724269	/Users/andyvand/Downloads/wxfreecell/build-android/freecell_xrs.h	53ad20ceae2f7b3b
+5	1558	1784803747952309174	CMakeFiles/wxFreeCell.dir/wx_freecell_game.cpp.o	db1cbdb571840273
+6	1582	1784803747952531924	CMakeFiles/wxFreeCell.dir/wx_freecell_dialogs.cpp.o	58471d496994cbae
+5	1585	1784803747952082466	CMakeFiles/wxFreeCell.dir/wx_freecell_frame.cpp.o	aeac408f03ed7921
+6	1578	1784803747952414924	CMakeFiles/wxFreeCell.dir/wx_freecell_cards.cpp.o	8b3fee87fc9cbd92
+5	1555	1784803747951896674	CMakeFiles/wxFreeCell.dir/wx_freecell_app.cpp.o	9ad304112fab715d
+5	1601	1784803747952198966	CMakeFiles/wxFreeCell.dir/wx_freecell_panel.cpp.o	983d905e826ea02b
+6	263	1784803881079746744	CMakeFiles/wxFreeCell.dir/android_compat.cpp.o	7ea9574db1261a14
+8	1084	1784803923011366337	CMakeFiles/wxFreeCell.dir/android_compat.cpp.o	7ea9574db1261a14
+8	1116	1784804006740452629	CMakeFiles/wxFreeCell.dir/android_compat.cpp.o	7ea9574db1261a14
+1116	2498	1784804007848728621	libwxFreeCell_arm64-v8a.so	42d90a840176faec
+2499	2512	1784804009231295979	CMakeFiles/wxFreeCell_prepare_apk_dir	4da73059222c7f63
+2499	2512	1784804009231295979	/Users/andyvand/Downloads/wxfreecell/build-android/CMakeFiles/wxFreeCell_prepare_apk_dir	4da73059222c7f63
+2512	13571	1784804020019924813	android-build/wxFreeCell.apk	2150aa74ee1a4d71
+2512	13571	1784804020019924813	/Users/andyvand/Downloads/wxfreecell/build-android/android-build/wxFreeCell.apk	2150aa74ee1a4d71
+7	90	1784804039209240933	CMakeFiles/wxFreeCell_prepare_apk_dir	4da73059222c7f63
+7	90	1784804039209240933	/Users/andyvand/Downloads/wxfreecell/build-android/CMakeFiles/wxFreeCell_prepare_apk_dir	4da73059222c7f63
+12	143	1784804205866633686	CMakeFiles/wxFreeCell_prepare_apk_dir	4da73059222c7f63
+12	143	1784804205866633686	/Users/andyvand/Downloads/wxfreecell/build-android/CMakeFiles/wxFreeCell_prepare_apk_dir	4da73059222c7f63
+14	147	1784804251415545894	CMakeFiles/wxFreeCell_prepare_apk_dir	4da73059222c7f63
+14	147	1784804251415545894	/Users/andyvand/Downloads/wxfreecell/build-android/CMakeFiles/wxFreeCell_prepare_apk_dir	4da73059222c7f63

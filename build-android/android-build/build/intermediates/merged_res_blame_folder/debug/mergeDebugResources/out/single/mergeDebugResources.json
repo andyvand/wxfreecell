@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "com.wxfreecell.app-debug-12:/mipmap-xhdpi_icon.png.flat",
+        "source": "com.wxfreecell.app-android-build-13:/mipmap-xhdpi/icon.png"
+    },
+    {
+        "merged": "com.wxfreecell.app-debug-12:/mipmap-hdpi_icon.png.flat",
+        "source": "com.wxfreecell.app-android-build-13:/mipmap-hdpi/icon.png"
+    },
+    {
+        "merged": "com.wxfreecell.app-debug-12:/mipmap-mdpi_icon.png.flat",
+        "source": "com.wxfreecell.app-android-build-13:/mipmap-mdpi/icon.png"
+    },
+    {
+        "merged": "com.wxfreecell.app-debug-12:/mipmap-xxxhdpi_icon.png.flat",
+        "source": "com.wxfreecell.app-android-build-13:/mipmap-xxxhdpi/icon.png"
+    },
+    {
+        "merged": "com.wxfreecell.app-debug-12:/xml_qtprovider_paths.xml.flat",
+        "source": "com.wxfreecell.app-android-build-13:/xml/qtprovider_paths.xml"
+    },
+    {
+        "merged": "com.wxfreecell.app-debug-12:/mipmap-xxhdpi_icon.png.flat",
+        "source": "com.wxfreecell.app-android-build-13:/mipmap-xxhdpi/icon.png"
+    }
+]

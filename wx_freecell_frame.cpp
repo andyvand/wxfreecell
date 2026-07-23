@@ -160,6 +160,14 @@ FreeCellFrame::FreeCellFrame()
     FreeCellGame& game = m_panel->GetGame();
     int seed = game.GenerateRandomGameNum();
     m_panel->StartNewGame(seed);
+
+#ifdef __ANDROID__
+    /* On Android the frame is realized as a QMainWindow with a QMenuBar at the
+       top. The desktop default 640x480 would leave the window smaller than the
+       device screen; maximize so the menu bar is visible/tappable and the play
+       area fills the display. */
+    Maximize(true);
+#endif
 }
 
 

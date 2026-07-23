@@ -4,6 +4,22 @@ project(wxFreeCell LANGUAGES C CXX)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+if(ANDROID)
+    # wxWidgets was cross-built with the wxQt backend against Qt for Android.
+    # Point FindwxWidgets at the cross wx-config shipped in the Qt Android prefix
+    # (the same prefix that provides Qt6). Overridable from the command line.
+    if(NOT wxWidgets_CONFIG_EXECUTABLE)
+        set(wxWidgets_CONFIG_EXECUTABLE
+            /usr/local/qt-6.9.3-android-arm64/bin/wx-config
+            CACHE FILEPATH "Cross wx-config for the Android/wxQt build")
+    endif()
+
+    # Qt6 is needed for qt_add_executable() and its androiddeployqt integration.
+    # PrintSupport is required because the wxQt core library references
+    # QPrinter/QPrinterInfo (wxWidgets printing support).
+    find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets PrintSupport)
+endif()
+
 # Find wxWidgets
 find_package(wxWidgets REQUIRED COMPONENTS core base xrc html xml)
 
@@ -17,8 +33,18 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 include(HostCompile)
 host_compile(${CMAKE_CURRENT_SOURCE_DIR}/bin2c.c ${BIN2C})
 
-# Find wxrc tool
-find_program(WXRC_EXECUTABLE wxrc)
+# Find wxrc tool.
+# On Android this is a cross build: the wxrc inside the Qt Android prefix is an
+# aarch64 Android ELF and cannot run on the build host. Pin to a native host
+# wxrc instead (overridable via -DWXRC_EXECUTABLE=...).
+if(ANDROID AND NOT WXRC_EXECUTABLE)
+    if(EXISTS /usr/local/bin/wxrc)
+        set(WXRC_EXECUTABLE /usr/local/bin/wxrc CACHE FILEPATH "Host wxrc for cross build")
+    endif()
+endif()
+if(NOT WXRC_EXECUTABLE)
+    find_program(WXRC_EXECUTABLE wxrc)
+endif()
 if(NOT WXRC_EXECUTABLE)
     message(FATAL_ERROR "wxrc not found. Install wxWidgets tools.")
 endif()
@@ -115,6 +141,20 @@ elseif(WIN32)
         COMMENT "Copying wxfreecell.chm next to executable")
     install(TARGETS wxFreeCell RUNTIME DESTINATION .)
     install(FILES ${CHM_FILE} DESTINATION .)
+elseif(ANDROID)
+    # Android also satisfies UNIX, so this branch must precede the UNIX one.
+    # On Android qt_add_executable() produces a shared library
+    # (libwxFreeCell_arm64-v8a.so) and wires up the deployment-settings JSON and
+    # the `apk`/`aab` build targets that drive androiddeployqt.
+    # Android-only compatibility shims (see android_compat.cpp).
+    list(APPEND SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/android_compat.cpp)
+    qt_add_executable(wxFreeCell ${SOURCES} ${HEADERS} ${XRS_HEADER})
+    set_target_properties(wxFreeCell PROPERTIES
+        QT_ANDROID_PACKAGE_SOURCE_DIR ${CMAKE_SOURCE_DIR}/android
+        QT_ANDROID_TARGET_SDK_VERSION 34
+        QT_ANDROID_MIN_SDK_VERSION 28
+        QT_ANDROID_ABIS "arm64-v8a")
+    target_link_libraries(wxFreeCell PRIVATE Qt6::Widgets Qt6::PrintSupport)
 elseif(UNIX)
     add_executable(wxFreeCell ${SOURCES} ${HEADERS} ${XRS_HEADER})
     install(TARGETS wxFreeCell RUNTIME DESTINATION bin)

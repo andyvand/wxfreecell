@@ -1,0 +1,2 @@
+set(__QT_DEPLOY_TARGET_wxFreeCell_FILE /Users/andyvand/Downloads/wxfreecell/build-android-release/libwxFreeCell_arm64-v8a.so)
+set(__QT_DEPLOY_TARGET_wxFreeCell_TYPE MODULE_LIBRARY)

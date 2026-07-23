@@ -1,0 +1,19 @@
+# ninja log v7
+2	288	1784804120688245901	freecell.xrs	50081702660c4eaa
+2	288	1784804120688245901	/Users/andyvand/Downloads/wxfreecell/build-android-release/freecell.xrs	50081702660c4eaa
+2	462	1784804120852454596	bin2c	8b934839f91c3be7
+2	462	1784804120852454596	/Users/andyvand/Downloads/wxfreecell/build-android-release/bin2c	8b934839f91c3be7
+462	471	1784804120875078696	freecell_xrs.h	4d9a81c838bb579e
+462	471	1784804120875078696	/Users/andyvand/Downloads/wxfreecell/build-android-release/freecell_xrs.h	4d9a81c838bb579e
+472	1708	1784804120876449528	CMakeFiles/wxFreeCell.dir/android_compat.cpp.o	c4469cc6601fded5
+471	1795	1784804120875904778	CMakeFiles/wxFreeCell.dir/wx_freecell_game.cpp.o	220e80b8ab63fcb6
+471	1803	1784804120875529154	CMakeFiles/wxFreeCell.dir/wx_freecell_app.cpp.o	628eb0e8c74930dd
+472	1831	1784804120876015945	CMakeFiles/wxFreeCell.dir/wx_freecell_cards.cpp.o	49f102abae1e95f0
+472	1841	1784804120876200736	CMakeFiles/wxFreeCell.dir/wx_freecell_dialogs.cpp.o	e380df4d9ded5441
+471	1936	1784804120875672987	CMakeFiles/wxFreeCell.dir/wx_freecell_frame.cpp.o	8d3bbd67239ede18
+471	1998	1784804120875793779	CMakeFiles/wxFreeCell.dir/wx_freecell_panel.cpp.o	9388fa42946f211e
+1998	3118	1784804122402588562	libwxFreeCell_arm64-v8a.so	a9e8d4d6cabf4a83
+3118	3127	1784804123522608500	CMakeFiles/wxFreeCell_prepare_apk_dir	ce2001a3180959bb
+3118	3127	1784804123522608500	/Users/andyvand/Downloads/wxfreecell/build-android-release/CMakeFiles/wxFreeCell_prepare_apk_dir	ce2001a3180959bb
+3127	10341	1784804128277241160	android-build/wxFreeCell.apk	40183c9bc9f84fd8
+3127	10341	1784804128277241160	/Users/andyvand/Downloads/wxfreecell/build-android-release/android-build/wxFreeCell.apk	40183c9bc9f84fd8
