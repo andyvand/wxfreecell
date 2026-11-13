@@ -14,6 +14,14 @@ Originally written by Jim Horne in June 1991, this port preserves the original g
 
 ![](/screenshots/wxfreecell_macOS.png)
 
+- Mac OS 7.5.X (m68k)
+
+![](/screenshots/wxFreeCell_MacOS_m68k.png)
+
+- Mac OS 9.X (ppc)
+
+![](/screenshots/wxFreeCell_MacOS_ppc.png)
+
 - Linux:
 
 ![](/screenshots/wxfreecell_linux.png)
