@@ -22,6 +22,15 @@
 /* Implemented in help_mac.mm. anchor==NULL opens the book's home page. */
 extern "C" void ShowMacHelpBook(const char *anchor);
 #endif
+#ifdef __WXRETRO68__
+/* Implemented in retro68/help_retro68.cpp: the embedded HTML help. */
+void ShowRetro68Help(wxWindow *parent);
+#endif
+
+/* Platforms with a FreeCell Help to show (F1 and the Help menu item). */
+#if defined(__WXMSW__) || defined(__WXMAC__) || defined(__WXRETRO68__)
+#  define FREECELL_HAS_HELP 1
+#endif
 
 wxBEGIN_EVENT_TABLE(FreeCellFrame, wxFrame)
     EVT_CLOSE(FreeCellFrame::OnClose)
@@ -38,7 +47,7 @@ FreeCellFrame::FreeCellFrame()
     /* ---- Application icon ---- */
 #ifdef __WXMSW__
     SetIcon(wxICON(wxfreecell));
-#elif !defined(__WXMAC__)
+#elif !defined(__WXMAC__) && !defined(__WXRETRO68__)
     /* On Linux/GTK, load from installed hicolor icon or bundled PNG */
     {
         wxIcon icon;
@@ -77,7 +86,7 @@ FreeCellFrame::FreeCellFrame()
         gameMenu->Append(IDM_EXIT, "E&xit");
 
         wxMenu* helpMenu = new wxMenu;
-#if defined(__WXMSW__) || defined(__WXMAC__)
+#ifdef FREECELL_HAS_HELP
         helpMenu->Append(IDM_HELP_CONTENTS, "FreeCell &Help\tF1");
         helpMenu->AppendSeparator();
 #endif
@@ -102,7 +111,7 @@ FreeCellFrame::FreeCellFrame()
     Bind(wxEVT_MENU, &FreeCellFrame::OnCheat,       this, IDM_CHEAT);
 
     /* Hide the "FreeCell Help" menu item on platforms without a help file. */
-#if !defined(__WXMSW__) && !defined(__WXMAC__)
+#ifndef FREECELL_HAS_HELP
     if (wxMenuBar* bar = GetMenuBar())
     {
         wxMenuItem* helpItem = bar->FindItem(IDM_HELP_CONTENTS);
@@ -123,7 +132,7 @@ FreeCellFrame::FreeCellFrame()
 #endif
 
     /* ---- Accelerator table ---- */
-#if defined(__WXMSW__) || defined(__WXMAC__)
+#ifdef FREECELL_HAS_HELP
     wxAcceleratorEntry accel[7];
     accel[6].Set(wxACCEL_NORMAL, WXK_F1, IDM_HELP_CONTENTS);
     const int accelCount = 7;
@@ -160,6 +169,28 @@ FreeCellFrame::FreeCellFrame()
     FreeCellGame& game = m_panel->GetGame();
     int seed = game.GenerateRandomGameNum();
     m_panel->StartNewGame(seed);
+
+#ifdef __WXRETRO68__
+    /* Classic Macs commonly have 512x342, 640x480 or 832x624 screens: keep
+       the window (title bar, menu and status bar included) on the screen,
+       even if that cuts off some of the table on the smallest ones. */
+    {
+        wxRect avail = wxGetClientDisplayRect();
+        wxSize decor = GetSize() - GetClientSize();
+        wxSize size(640, 480);
+        wxSize minSize(640, 480);
+        int maxW = avail.width  - 8;
+        int maxH = avail.height - 8;
+        if (maxW > decor.x && maxH > decor.y)
+        {
+            size.DecTo(wxSize(maxW, maxH));
+            minSize.DecTo(wxSize(maxW, maxH));
+        }
+        SetMinSize(minSize);
+        SetSize(size);
+        Move(avail.x + (avail.width - GetSize().x) / 2, avail.y + 4);
+    }
+#endif
 
 #ifdef __ANDROID__
     /* On Android the frame is realized as a QMainWindow with a QMenuBar at the
@@ -332,6 +363,9 @@ void FreeCellFrame::OnHelpContents(wxCommandEvent& WXUNUSED(event))
        is needed because helpd's launch-time registration is unreliable for
        unsigned dev builds and falls back to the system Mac User Guide. */
     ShowMacHelpBook(NULL);
+#elif defined(__WXRETRO68__)
+    /* Classic Mac OS: the embedded HTML help in a wxHtmlWindow. */
+    ShowRetro68Help(this);
 #endif
 }
 
